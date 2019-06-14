@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title>All Projects</title>
+    <style>
+        .project-link {
+            text-decoration: none;
+            color: black;
+        }
+        .project-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>All Projects</h1>
+    <% for (let i = 0; i < projects.length; i++) { %>
+        <div>
+            <h3><a class="project-link" href="/projects/<%=projects[i].id %>"><%= projects[i].title %></a></h3>
+        </div>
+    <% } %>
+</body>
+
+</html>

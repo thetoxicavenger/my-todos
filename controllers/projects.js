@@ -19,18 +19,33 @@ function getProjectInfo(project_id) {
   })
 }
 
+function getAllProjects() {
+  return new Promise((resolve, reject) => {
+    return knex('projects')
+      .then(resolve)
+      .catch(reject)
+  })
+}
+
+function send500Status(e, res) {
+  console.error(e)
+  return res.sendStatus(500)
+}
+
 module.exports = {
   getAll: function (req, res) {
-    knex('projects')
+    return getAllProjects()
       .then(projects => {
         res.json(projects)
       })
+      .catch(e => send500Status(e, res))
   },
   getOne: function (req, res) {
-    getProjectInfo(req.params.id)
+    return getProjectInfo(req.params.id)
       .then(project => {
         res.json(project)
       })
+      .catch(e => send500Status(e, res))
   },
   addOne: (req, res) => {
     knex('projects')
@@ -39,6 +54,7 @@ module.exports = {
       .then(results => {
         res.json(results[0])
       })
+      .catch(e => send500Status(e, res))
   },
   editOne: function (req, res) {
     knex('projects')
@@ -47,6 +63,7 @@ module.exports = {
       .then(() => {
         res.sendStatus(200)
       })
+      .catch(e => send500Status(e, res))
   },
   deleteOne: function (req, res) {
     knex('projects')
@@ -54,36 +71,43 @@ module.exports = {
       .del()
       .then(() => {
         knex('todos')
-        .where('project_id', req.params.id)
-        .del()
-        .then(() => {
-          res.sendStatus(200)
-        })
+          .where('project_id', req.params.id)
+          .del()
+          .then(() => {
+            res.sendStatus(200)
+          })
       })
+      .catch(e => send500Status(e, res))
   },
   getTodos: function (req, res) {
     getProjectTodos(req.params.id)
       .then(todos => {
         res.json(todos)
       })
+      .catch(e => send500Status(e, res))
   },
-  renderOne: function(req, res) {
+  renderAll: function (req, res) {
+    return getAllProjects()
+    .then(projects => {
+      res.render('pages/all_projects', {
+        projects
+      })
+    })
+    .catch(e => send500Status(e, res))
+  },
+  renderOne: function (req, res) {
     Promise.all([getProjectInfo(req.params.id), getProjectTodos(req.params.id)])
-    .then(results => {
-      if (typeof results[0] === 'object' && results[1].length) {
-        res.render('pages/project', {
-          project: results[0],
-          todos: results[1],
-          error: false
-        })
-      } else {
-        res.render('pages/project_not_found')
-      }
-      
-    })
-    .catch(e => {
-      console.error(e)
-      res.sendStatus(500)
-    })
+      .then(results => {
+        if (typeof results[0] === 'object') {
+          res.render('pages/project', {
+            project: results[0],
+            todos: results[1],
+            error: false
+          })
+        } else {
+          res.render('pages/project_not_found')
+        }
+      })
+      .catch(e => send500Status(e, res))
   }
 }

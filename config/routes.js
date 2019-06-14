@@ -15,6 +15,7 @@ module.exports = function(app){
   app.delete('/api/todos/:id', todos.deleteOne)
   app.post('/api/todos/delete', todos.deleteMultiple)
 
+  app.get('/projects', projects.renderAll)
   app.get('/projects/:id', projects.renderOne)
   
   
