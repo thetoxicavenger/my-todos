@@ -14,6 +14,8 @@ module.exports = function(app){
   app.patch('/api/todos/:id', todos.editOne)
   app.delete('/api/todos/:id', todos.deleteOne)
   app.post('/api/todos/delete', todos.deleteMultiple)
+
+  app.get('/projects/:id', projects.renderOne)
   
   
 
