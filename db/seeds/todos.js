@@ -8,12 +8,14 @@ exports.seed = function(knex, Promise) {
         {
           project_id: 1,
           text: 'Call sister',
-          notes: 'You havent called her in forever!'
+          notes: 'You havent called her in forever!',
+          order_id: 0
         },
         {
           project_id: 2,
           text: 'Call Meryl',
-          notes: 'Wat!'
+          notes: 'Wat!',
+          order_id: 1
         },
       ]);
     });
