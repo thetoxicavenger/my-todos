@@ -1,31 +1,41 @@
 import React from 'react'
 import styled from 'styled-components'
-
-const CardsContainer = styled.main`
-    display: flex;
-`
+import Link from 'next/link'
 
 const ProjectCard = styled.a`
     display: block;
-    border-radius: 1em;
-    padding: 1em 2em;
+    border-radius: 0.4em;
+    padding: 0.5em 2em;
+    background: #ffffff;
+    height: 6em;
+    width: 6em;
+    color: black;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
 `
 
 const ProjectImg = styled.img`
-    max-width: 20%;
+    max-width: 50%;
     display: block;
 `
 
 const ProjectTitle = styled.h2`
-
+    margin-top: 0.3em;
 `
 
 function Project({ id, order_id, title, img_url }) {
+    const href = `/projects/${id}`
+    const alt = `${title} project icon`
     return (
         <>
-            <CardsContainer>
-                <ProjectTitle>{title}</ProjectTitle>
-            </CardsContainer>
+            <Link prefetch href={href} passHref>
+                <ProjectCard>
+                    <ProjectImg src={img_url} alt={alt} />
+                    <ProjectTitle>{title}</ProjectTitle>
+                </ProjectCard>
+            </Link>
         </>
     )
 }

@@ -1,6 +1,11 @@
 import React from 'react'
 import Projects from '../components/Projects'
 import api from '../util/api'
+import styled from 'styled-components'
+
+const ProjectsTitle = styled.h1`
+  padding-left: 0.82em;
+`
 
 function IndexPage({ projects, projectsFetchError }) {
   if (projectsFetchError) {
@@ -8,7 +13,7 @@ function IndexPage({ projects, projectsFetchError }) {
   }
   return (
     <>
-      <h1>Projects</h1>
+      <ProjectsTitle>Projects</ProjectsTitle>
       <Projects projects={projects} />
     </>
   )
