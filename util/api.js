@@ -20,6 +20,24 @@ const api = {
                 reject()
             }
         })
+    },
+    getProjectTodos: function (projectId) {
+        const url = `${baseUrl}/projects/${projectId}/todos`
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios(url)
+                if (res.status !== 200) {
+                    throw new Error(`Bad response code from API while trying to fetch todos for project with id: ${projectId}.`)
+                }
+                if (!res.data) {
+                    throw new Error("No todos found.")
+                }
+                resolve(res.data)
+            } catch (e) {
+                console.error(e)
+                reject()
+            }
+        })
     }
 }
 

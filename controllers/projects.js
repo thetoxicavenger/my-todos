@@ -86,28 +86,4 @@ module.exports = {
       })
       .catch(e => send500Status(e, res))
   },
-  renderAll: function (req, res) {
-    return getAllProjects()
-    .then(projects => {
-      res.render('pages/all_projects', {
-        projects
-      })
-    })
-    .catch(e => send500Status(e, res))
-  },
-  renderOne: function (req, res) {
-    Promise.all([getProjectInfo(req.params.id), getProjectTodos(req.params.id)])
-      .then(results => {
-        if (typeof results[0] === 'object') {
-          res.render('pages/project', {
-            project: results[0],
-            todos: results[1],
-            error: false
-          })
-        } else {
-          res.render('pages/project_not_found')
-        }
-      })
-      .catch(e => send500Status(e, res))
-  }
 }

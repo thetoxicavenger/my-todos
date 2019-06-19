@@ -9,6 +9,10 @@ module.exports = function(server, app){
     return app.render(req, res, '/')
   })
 
+  server.get('/projects', (req, res) => {
+    return app.render(req, res, '/project')
+  })
+
   server.get('/api/projects', projects.getAll)
   server.post('/api/projects', projects.addOne)
   server.get('/api/projects/:id', projects.getOne)
@@ -20,9 +24,6 @@ module.exports = function(server, app){
   server.patch('/api/todos/:id', todos.editOne)
   server.delete('/api/todos/:id', todos.deleteOne)
   server.post('/api/todos/delete', todos.deleteMultiple)
-
-  server.get('/projects', projects.renderAll)
-  server.get('/projects/:id', projects.renderOne)
   
   server.get('*', (req, res) => {
     return handle(req, res)

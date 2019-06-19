@@ -2,3 +2,10 @@ subtasks relationship?
 Order configuration for both projects and todos
 timestamps not updating on update
 body validtor
+test no todos found case, random error case in api.getProjectTodos
+add redirect to projects page if project/id not found/is invalid
+re-do router with rest-like routes not query strings https://nextjs.org/learn/basics/create-dynamic-pages/passing-data, https://stackoverflow.com/questions/48736902/how-do-you-get-query-params-from-the-url-in-getinitialprops
+
+Next doesn't run getInitialProps when non-reload? Probably client vs server
+add project info to project todos page
+

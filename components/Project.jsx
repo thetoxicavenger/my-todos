@@ -26,7 +26,7 @@ const ProjectTitle = styled.h2`
 `
 
 function Project({ id, order_id, title, img_url }) {
-    const href = `/projects/${id}`
+    const href = `/project?id=${id}`
     const alt = `${title} project icon`
     return (
         <>
