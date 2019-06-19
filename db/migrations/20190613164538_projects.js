@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('id')
     table.integer('order_id')
     table.string('title')
+    table.string('img_url')
     table.timestamps(true, true)
   })
 };
