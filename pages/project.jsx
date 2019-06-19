@@ -15,9 +15,10 @@ function ProjectPage({ todos, todosFetchError }) {
     )
 }
 
-ProjectPage.getInitialProps = async ({ req }) => {
+ProjectPage.getInitialProps = async ({ req, query }) => {
+    const isServer = !!req
     try {
-        const todos = await api.getProjectTodos(req.query.id)
+        const todos = await api.getProjectTodos(isServer ? req.query.id : query.id)
         return {
             todos,
             todosFetchError: false

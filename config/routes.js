@@ -10,7 +10,7 @@ module.exports = function(server, app){
   })
 
   server.get('/projects', (req, res) => {
-    return app.render(req, res, '/project')
+    return app.render(req, res, '/project', { id: req.query.id })
   })
 
   server.get('/api/projects', projects.getAll)
