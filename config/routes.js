@@ -1,22 +1,32 @@
 const projects = require("../controllers/projects.js")
 const todos = require("../controllers/todos.js")
 
-module.exports = function(app){
+module.exports = function(server, app){
 
-  app.get('/api/projects', projects.getAll)
-  app.post('/api/projects', projects.addOne)
-  app.get('/api/projects/:id', projects.getOne)
-  app.get('/api/projects/:id/todos', projects.getTodos)
-  app.patch('/api/projects/:id', projects.editOne)
-  app.delete('/api/projects/:id', projects.deleteOne)
+  const handle = app.getRequestHandler()
 
-  app.post('/api/todos', todos.addOne)
-  app.patch('/api/todos/:id', todos.editOne)
-  app.delete('/api/todos/:id', todos.deleteOne)
-  app.post('/api/todos/delete', todos.deleteMultiple)
+  server.get('/', (req, res) => {
+    return app.render(req, res, '/')
+  })
 
-  app.get('/projects', projects.renderAll)
-  app.get('/projects/:id', projects.renderOne)
+  server.get('*', (req, res) => {
+    return handle(req, res)
+  })
+
+  server.get('/api/projects', projects.getAll)
+  server.post('/api/projects', projects.addOne)
+  server.get('/api/projects/:id', projects.getOne)
+  server.get('/api/projects/:id/todos', projects.getTodos)
+  server.patch('/api/projects/:id', projects.editOne)
+  server.delete('/api/projects/:id', projects.deleteOne)
+
+  server.post('/api/todos', todos.addOne)
+  server.patch('/api/todos/:id', todos.editOne)
+  server.delete('/api/todos/:id', todos.deleteOne)
+  server.post('/api/todos/delete', todos.deleteMultiple)
+
+  server.get('/projects', projects.renderAll)
+  server.get('/projects/:id', projects.renderOne)
   
   
 
