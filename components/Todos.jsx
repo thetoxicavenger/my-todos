@@ -9,7 +9,6 @@ function Todos({ todos }) {
     })
     return (
         <>
-            <h1>Project Name</h1>
             {todosList}
         </>
     )

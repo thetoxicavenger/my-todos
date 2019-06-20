@@ -1,0 +1,17 @@
+useEffect(() => {
+  let isCurrent = true
+  getUser(12).then((u) => {
+      if (!isCurrent) return false
+      setUser(u)
+  })
+  return () => {
+      isCurrent = false
+  }
+}, [12])
+
+UI is a refelection of state
+
+
+
+
+useEffect(() => authChanged(uid, setAuth), [uid])

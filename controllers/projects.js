@@ -1,5 +1,43 @@
 const knex = require("../db/knex.js");
 
+function getProjectAndTodos(project_id) {
+  return new Promise((resolve, reject) => {
+    return knex('todos')
+      .where('project_id', project_id)
+      .join('projects', 'projects.id', '=', 'todos.id')
+      .then(todos => {
+        if (!todos.length) {
+          reject()
+        } else {
+          /* ['project_id', 'created_at', 'updated_at', 'title', 'img_url'] */
+          const keys_to_remove = {
+            project_id: true,
+            created_at: true,
+            updated_at: true,
+            title: true,
+            img_url: true,
+          }
+          resolve({
+            project_name: todos[0].title,
+            todos: todos.map(todo => {
+              let acc = {}
+              for (let key in todo) {
+                if (!keys_to_remove[key]) {
+                  acc = {
+                    ...acc,
+                    [key]: todo[key]
+                  }
+                }
+              }
+              return acc
+            })
+          })
+        }
+      })
+      .catch(reject)
+  })
+}
+
 function getProjectTodos(project_id) {
   return new Promise((resolve, reject) => {
     return knex('todos')
@@ -40,12 +78,22 @@ module.exports = {
       })
       .catch(e => send500Status(e, res))
   },
-  getOne: function (req, res) {
-    return getProjectInfo(req.params.id)
-      .then(project => {
-        res.json(project)
-      })
-      .catch(e => send500Status(e, res))
+  getOne: async function (req, res) {
+    if (req.query.get_todos === "true") {
+      try {
+        const project_and_todos = await getProjectAndTodos(req.params.id)
+        return res.json(project_and_todos)
+      } catch (e) {
+        return send500Status(e, res)
+      }
+    } else {
+      return getProjectInfo(req.params.id)
+        .then(project => {
+          res.json(project)
+        })
+        .catch(e => send500Status(e, res))
+    }
+
   },
   addOne: (req, res) => {
     knex('projects')

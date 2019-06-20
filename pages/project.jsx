@@ -1,15 +1,14 @@
 import React from 'react'
 import Todos from '../components/todos'
 import api from '../util/api'
-// import styled from 'styled-components'
 
-
-function ProjectPage({ todos, todosFetchError }) {
+function ProjectPage({ todos, todosFetchError, project_name }) {
     if (todosFetchError) {
         return <div>Error loading todos!</div>
     }
     return (
         <>
+            <h1>{project_name}</h1>
             <Todos todos={todos} />
         </>
     )
@@ -17,14 +16,16 @@ function ProjectPage({ todos, todosFetchError }) {
 
 ProjectPage.getInitialProps = async ({ query }) => {
     try {
-        const todos = await api.getProjectTodos(query.id)
+        const { project_name, todos } = await api.getProjectAndTodos(query.id)
         return {
             todos,
+            project_name,
             todosFetchError: false
         }
     } catch (e) {
         return {
             todos: [],
+            project_name: '',
             todosFetchError: true
         }
     }
