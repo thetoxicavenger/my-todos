@@ -9,7 +9,7 @@ function Todos({ todos }) {
     })
     return (
         <>
-            {todosList}
+                {todosList}
         </>
     )
 }

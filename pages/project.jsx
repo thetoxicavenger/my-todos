@@ -36,6 +36,17 @@ const ProjectImgContainer = styled.div`
     margin-bottom: 0.75em;
 `
 
+const TodosContainer = styled.main`
+    background: white;
+    height: 100vh;
+    border-radius: 1.8em;
+    padding: 1.5em 3em;
+`
+
+const ContentContainer = styled.div`
+    padding: 1.5em 3em;
+`
+
 function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
     if (todosFetchError) {
         return <div>Error loading todos!</div>
@@ -52,8 +63,9 @@ function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
                     </ProjectImgContainer>
                     <PageHeadline>{project_name}</PageHeadline>
                 </ProjectInfoContainer>
-
-                {/* <Todos todos={todos} /> */}
+                <TodosContainer>
+                    <Todos todos={todos} />
+                </TodosContainer>
             </PageContainer>
         </>
     )
