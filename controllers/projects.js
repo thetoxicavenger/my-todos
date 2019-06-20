@@ -19,6 +19,7 @@ function getProjectAndTodos(project_id) {
           }
           resolve({
             project_name: todos[0].title,
+            project_icon: todos[0].img_url,
             todos: todos.map(todo => {
               let acc = {}
               for (let key in todo) {

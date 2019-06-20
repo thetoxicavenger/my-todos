@@ -22,7 +22,7 @@ export default class MyApp extends App {
   render () {
     const { Component, pageProps } = this.props
     return (
-      <Container style={{ background: '#efeeee' }}>
+      <Container style={{ background: '#efeeee', margin: 0 }}>
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
         </ThemeProvider>
