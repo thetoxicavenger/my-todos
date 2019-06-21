@@ -43,8 +43,24 @@ const TodosContainer = styled.main`
     padding: 1.5em 3em;
 `
 
+const NewTodoBtn = styled.a`
+    background: #386dd9;
+    color: white;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    color: white;
+    padding: 0.5em;
+    width: 1em;
+    text-align: center;
+    display: block;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 2em;
+`
 
-function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
+
+function ProjectPage({ todos, todosFetchError, project_name, project_icon, project_id }) {
     if (todosFetchError) {
         return <div>Error loading todos!</div>
     }
@@ -79,6 +95,7 @@ function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
                         setCompletedIds={setCompletedIds}
                     />
                 </TodosContainer>
+                <NewTodoBtn href={`/new_todo?project_id=${project_id}`}>+</NewTodoBtn>
             </PageContainer>
         </>
     )
@@ -91,13 +108,15 @@ ProjectPage.getInitialProps = async ({ query }) => {
             todos,
             project_name,
             project_icon,
+            project_id: query.id,
             todosFetchError: false
         }
     } catch (e) {
         return {
             todos: [],
-            project_name: '',
-            project_icon: '',
+            project_name: undefined,
+            project_icon: undefined,
+            project_id: undefined,
             todosFetchError: true
         }
     }

@@ -13,6 +13,10 @@ module.exports = function(server, app){
     return app.render(req, res, '/project', { id: req.query.id })
   })
 
+  server.get('/new_todo', (req, res) => {
+    return app.render(req, res, '/new_todo', { project_id: req.query.project_id })
+  })
+
   server.get('/api/projects', projects.getAll)
   server.post('/api/projects', projects.addOne)
   server.get('/api/projects/:id', projects.getOne)
