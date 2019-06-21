@@ -9,10 +9,6 @@ exports.up = function (knex, Promise) {
       .onDelete('CASCADE')
     table.integer('order_id')
     table.string('text')
-    table.string('notes')
-    table.boolean('is_completed').defaultsTo(false)
-    table.boolean('is_flagged').defaultsTo(false)
-    table.timestamps(true, true)
   })
 };
 

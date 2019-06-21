@@ -32,8 +32,8 @@ function Todo({ id, project_id, order_id, text, notes, is_flagged }) {
     const checkMark = is_completed && <CheckMark src="/static/round-check-black.png" alt="rounded black check mark" />
     return (
         <>
-            <TodoContainer onClick={setCompleted}>
-                <TodoText>{text}</TodoText>
+            <TodoContainer onClick={() => setCompleted(!is_completed)}>
+                <TodoText is_completed={is_completed}>{text}</TodoText>
                 <TodoCheckbox>
                     {checkMark}
                 </TodoCheckbox>
