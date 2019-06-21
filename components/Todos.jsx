@@ -3,7 +3,7 @@ import Todo from './Todo'
 
 function Todos({ todos, completedIds, setCompletedIds }) {
     if (!todos.length) {
-        return null
+        return <h1>You're all done! Naht.</h1>
     }
     const todosList = todos.map(todo => {
         return (

@@ -43,6 +43,7 @@ const TodosContainer = styled.main`
     padding: 1.5em 3em;
 `
 
+
 function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
     if (todosFetchError) {
         return <div>Error loading todos!</div>
@@ -56,13 +57,16 @@ function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
                 </NavContainer>
                 <ProjectInfoContainer>
                     <ProjectImgContainer onClick={async () => {
-                        try {
-                            await api.deleteCompleted(completedIds)
-                            setCompletedIds([])
-                        } catch (e) {
-                            console.error('Something went wrong trying to sync completed todos.')
-                            alert('Could not sync todos! Please refresh the page and try again.')
+                        if (completedIds.length) {
+                            try {
+                                await api.deleteCompleted(completedIds)
+                                setCompletedIds([])
+                            } catch (e) {
+                                console.error('Something went wrong trying to sync completed todos.')
+                                alert('Could not sync todos! Please refresh the page and try again.')
+                            }
                         }
+
                     }}>
                         <ProjectImg src={project_icon} />
                     </ProjectImgContainer>

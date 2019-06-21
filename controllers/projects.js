@@ -5,13 +5,19 @@ function getProjectAndTodos(project_id) {
     return knex('todos')
       .where('project_id', project_id)
       .join('projects', 'projects.id', '=', 'todos.id')
-      .then(todos => {
+      .then(async todos => {
           if (!todos.length) {
-            resolve({
-              project_name: '',
-              project_icon: '',
-              todos: []
-            })
+            try {
+              const projectInfo = await getProjectInfo(project_id)
+              resolve({
+                project_name: projectInfo.title,
+                project_icon: projectInfo.img_url,
+                todos: []
+              })
+            } catch (e) {
+              reject()
+            }
+            
           } else {
           const keys_to_remove = {
             project_id: true,
