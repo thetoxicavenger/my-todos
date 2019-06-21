@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const TodoContainer = styled.div`
@@ -27,11 +27,12 @@ const CheckMark = styled.img`
 `
 
 
-function Todo({ id, project_id, order_id, text, notes, is_completed, is_flagged }) {
+function Todo({ id, project_id, order_id, text, notes, is_flagged }) {
+    const [is_completed, setCompleted] = useState(false)
     const checkMark = is_completed && <CheckMark src="/static/round-check-black.png" alt="rounded black check mark" />
     return (
         <>
-            <TodoContainer>
+            <TodoContainer onClick={setCompleted}>
                 <TodoText>{text}</TodoText>
                 <TodoCheckbox>
                     {checkMark}
