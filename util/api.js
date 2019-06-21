@@ -21,7 +21,7 @@ const api = {
             }
         })
     },
-    getProjectAndTodos: function(project_id) {
+    getProjectAndTodos: function (project_id) {
         const url = `${baseUrl}/projects/${project_id}?get_todos=true`
         return new Promise(async (resolve, reject) => {
             try {
@@ -37,7 +37,22 @@ const api = {
                 console.error(e)
                 reject()
             }
-        }) 
+        })
+    },
+    deleteCompleted: function (idsToDelete) {
+        const url = `${baseUrl}/todos/delete`
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.post(url, { ids: idsToDelete })
+                if (res.status !== 200) {
+                    throw new Error("Bad response code from API while trying delete multiple todos.")
+                }
+                resolve()
+            } catch (e) {
+                console.error(e)
+                reject()
+            }
+        })  
     }
 }
 

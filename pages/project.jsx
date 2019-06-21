@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Todos from '../components/todos'
 import api from '../util/api'
 import TopNav from '../components/TopNav'
@@ -43,14 +43,11 @@ const TodosContainer = styled.main`
     padding: 1.5em 3em;
 `
 
-const ContentContainer = styled.div`
-    padding: 1.5em 3em;
-`
-
 function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
     if (todosFetchError) {
         return <div>Error loading todos!</div>
     }
+    const [completedIds, setCompletedIds] = useState([])
     return (
         <>
             <PageContainer>
@@ -58,13 +55,25 @@ function ProjectPage({ todos, todosFetchError, project_name, project_icon }) {
                     <TopNav />
                 </NavContainer>
                 <ProjectInfoContainer>
-                    <ProjectImgContainer>
+                    <ProjectImgContainer onClick={async () => {
+                        try {
+                            await api.deleteCompleted(completedIds)
+                            setCompletedIds([])
+                        } catch (e) {
+                            console.error('Something went wrong trying to sync completed todos.')
+                            alert('Could not sync todos! Please refresh the page and try again.')
+                        }
+                    }}>
                         <ProjectImg src={project_icon} />
                     </ProjectImgContainer>
                     <PageHeadline>{project_name}</PageHeadline>
                 </ProjectInfoContainer>
                 <TodosContainer>
-                    <Todos todos={todos} />
+                    <Todos
+                        todos={todos}
+                        completedIds={completedIds}
+                        setCompletedIds={setCompletedIds}
+                    />
                 </TodosContainer>
             </PageContainer>
         </>

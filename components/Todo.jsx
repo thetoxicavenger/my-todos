@@ -26,13 +26,15 @@ const CheckMark = styled.img`
     width: 1.75em;
 `
 
-
-function Todo({ id, project_id, order_id, text, notes, is_flagged }) {
+function Todo({ id, text, addToCompletedArr, removeFromCompletedArr }) {
     const [is_completed, setCompleted] = useState(false)
     const checkMark = is_completed && <CheckMark src="/static/round-check-black.png" alt="rounded black check mark" />
     return (
         <>
-            <TodoContainer onClick={() => setCompleted(!is_completed)}>
+            <TodoContainer onClick={() => {
+                is_completed ? removeFromCompletedArr(id) : addToCompletedArr(id)
+                setCompleted(!is_completed)
+            }}>
                 <TodoText is_completed={is_completed}>{text}</TodoText>
                 <TodoCheckbox>
                     {checkMark}

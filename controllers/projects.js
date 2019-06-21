@@ -6,10 +6,13 @@ function getProjectAndTodos(project_id) {
       .where('project_id', project_id)
       .join('projects', 'projects.id', '=', 'todos.id')
       .then(todos => {
-        if (!todos.length) {
-          reject()
-        } else {
-          /* ['project_id', 'created_at', 'updated_at', 'title', 'img_url'] */
+          if (!todos.length) {
+            resolve({
+              project_name: '',
+              project_icon: '',
+              todos: []
+            })
+          } else {
           const keys_to_remove = {
             project_id: true,
             created_at: true,

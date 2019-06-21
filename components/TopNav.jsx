@@ -12,7 +12,7 @@ const BackBtnIcon = styled.img`
     cursor: pointer;
 `
 
-function TopNav(props) {
+function TopNav() {
     return (
         <>
             <Nav>
