@@ -2,7 +2,6 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('projects', table => {
     table.increments('id')
-    table.integer('order_id')
     table.string('title')
     table.string('img_url')
     table.timestamps(true, true)

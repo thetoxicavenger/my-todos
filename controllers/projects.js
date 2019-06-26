@@ -4,7 +4,6 @@ function getProjectAndTodos(project_id) {
   return new Promise((resolve, reject) => {
     return knex('todos')
       .where('project_id', project_id)
-      .join('projects', 'projects.id', '=', 'todos.id')
       .then(async todos => {
           if (!todos.length) {
             try {
@@ -26,22 +25,16 @@ function getProjectAndTodos(project_id) {
             title: true,
             img_url: true,
           }
-          resolve({
-            project_name: todos[0].title,
-            project_icon: todos[0].img_url,
-            todos: todos.map(todo => {
-              let acc = {}
-              for (let key in todo) {
-                if (!keys_to_remove[key]) {
-                  acc = {
-                    ...acc,
-                    [key]: todo[key]
-                  }
-                }
-              }
-              return acc
+          try {
+            const projectInfo = await getProjectInfo(project_id)
+            resolve({
+              project_name: projectInfo.title,
+              project_icon: projectInfo.img_url,
+              todos
             })
-          })
+          } catch (e) {
+            reject()
+          }
         }
       })
       .catch(reject)

@@ -7,7 +7,6 @@ exports.up = function (knex, Promise) {
       .inTable('projects')
       .index()
       .onDelete('CASCADE')
-    table.integer('order_id')
     table.string('text')
   })
 };

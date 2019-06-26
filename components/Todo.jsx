@@ -4,6 +4,8 @@ import styled from 'styled-components'
 const TodoContainer = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 0.5em;
+    align-items: center;
 `
 
 const TodoText = styled.label`

@@ -8,12 +8,10 @@ exports.seed = function(knex, Promise) {
         {
           project_id: 1,
           text: 'Call sister',
-          order_id: 0
         },
         {
           project_id: 2,
           text: 'Call Meryl',
-          order_id: 1
         },
       ]);
     });

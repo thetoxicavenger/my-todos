@@ -2,12 +2,16 @@ const knex = require("../db/knex.js");
 
 module.exports = {
   addOne: (req, res) => {
+    const body = {
+      ...req.body,
+      project_id: Number(req.body.project_id)
+    }
     knex('todos')
-    .insert(req.body)
-    .returning('*')
-    .then(results => {
-      res.json(results[0])
+    .insert(body)
+    .then(() => {
+      res.redirect('/projects?id=' + body.project_id)
     })
+    .catch(e => res.sendStatus(500))
   },
   editOne: function(req, res) {
     knex('todos')
