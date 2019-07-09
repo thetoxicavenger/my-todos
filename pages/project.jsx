@@ -50,13 +50,16 @@ const NewTodoBtn = styled.a`
     bottom: 1em;
     right: 1em;
     color: white;
-    padding: 0.5em;
-    width: 1em;
+    width: 2em;
+    height: 2em;
     text-align: center;
-    display: block;
-    border-radius: 50%;
-    text-decoration: none;
     font-size: 2em;
+    text-decoration: none;
+    border-radius: 1em;
+`
+
+const NewTodoBtnText = styled.div`
+    margin-top: 0.35em;
 `
 
 
@@ -76,10 +79,10 @@ function ProjectPage({ todos, todosFetchError, project_name, project_icon, proje
                         if (completedIds.length) {
                             try {
                                 await api.deleteCompleted(completedIds)
-                                location.reload() // i know this is crap, lord forgive me
+                                location.reload() // i know this is crap, plz forgive me
                             } catch (e) {
                                 console.error('Something went wrong trying to sync completed todos.')
-                                alert('Could not sync todos! Please refresh the page and try again.')
+                                alert('Could not sync todos! Please refresh the page and try again.') // so is this
                             }
                         }
 
@@ -95,7 +98,9 @@ function ProjectPage({ todos, todosFetchError, project_name, project_icon, proje
                         setCompletedIds={setCompletedIds}
                     />
                 </TodosContainer>
-                <NewTodoBtn href={`/new_todo?project_id=${project_id}`}>+</NewTodoBtn>
+                <NewTodoBtn href={`/new_todo?project_id=${project_id}`}>
+                <NewTodoBtnText>+</NewTodoBtnText>
+                </NewTodoBtn>
             </PageContainer>
         </>
     )
