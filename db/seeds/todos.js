@@ -7,11 +7,35 @@ exports.seed = function(knex, Promise) {
       return knex('todos').insert([
         {
           project_id: 1,
-          text: 'Call sister',
+          text: 'Call Julia',
+        },
+        {
+          project_id: 1,
+          text: 'Call Matt',
+        },
+        {
+          project_id: 1,
+          text: 'Call Mom',
+        },
+        {
+          project_id: 1,
+          text: 'Call Dad',
+        },
+        {
+          project_id: 2,
+          text: 'Call Greg',
         },
         {
           project_id: 2,
           text: 'Call Meryl',
+        },
+        {
+          project_id: 2,
+          text: 'Call Mimi',
+        },
+        {
+          project_id: 2,
+          text: 'Call Troy',
         },
       ]);
     });

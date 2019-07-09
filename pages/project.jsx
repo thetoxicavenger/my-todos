@@ -76,7 +76,7 @@ function ProjectPage({ todos, todosFetchError, project_name, project_icon, proje
                         if (completedIds.length) {
                             try {
                                 await api.deleteCompleted(completedIds)
-                                setCompletedIds([])
+                                location.reload() // i know this is crap, lord forgive me
                             } catch (e) {
                                 console.error('Something went wrong trying to sync completed todos.')
                                 alert('Could not sync todos! Please refresh the page and try again.')

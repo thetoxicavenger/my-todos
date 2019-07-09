@@ -31,10 +31,13 @@ module.exports = {
   },
   deleteMultiple: function(req, res) {
     knex('todos')
-    .whereIn('id', JSON.parse(req.body.ids))
+    .whereIn('id', req.body.ids)
     .del()
     .then(() => {
       res.sendStatus(200)
+    })
+    .catch(e => {
+      res.sendStatus(500)
     })
   }
 }
