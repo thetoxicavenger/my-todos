@@ -2,20 +2,18 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const PageContainer = styled.div`
-    padding-left: 1.5em;
-    padding-right: 0.1em;
     background: #ffffff;
     height: 100vh;
     padding-top: 1em;
 `
 
 const NavContainer = styled.nav`
-    display: flex;
-    justify-content: space-around;
 `
 
-const NewTaskHeadline = styled.h1`
+const NewTaskHeadline = styled.h4`
     margin: 0;
+    font-weight: normal;
+    text-align: center;
 `
 
 const CancelNewTaskBtn = styled.a`
@@ -31,9 +29,9 @@ function NewTodoPage({ project_id }) {
         <PageContainer>
             <NavContainer>
                 <NewTaskHeadline>New Task</NewTaskHeadline>
-                <CancelNewTaskBtn href={`/project?id=${project_id}`}>x</CancelNewTaskBtn>
+                {/* <CancelNewTaskBtn href={`/project?id=${project_id}`}>x</CancelNewTaskBtn> */}
             </NavContainer>
-            <form method="POST" action="/api/todos">
+            {/* <form method="POST" action="/api/todos">
                 <div>
                     <label>What are you planning?</label>
                 </div>
@@ -44,7 +42,7 @@ function NewTodoPage({ project_id }) {
                 <div>
                     <input type="Submit" value="Create" readOnly/>
                 </div>
-            </form>
+            </form> */}
         </PageContainer>
     )
 }
